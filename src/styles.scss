@@ -1,0 +1,17 @@
+$black: #333333;
+$yellow-gold: #f0be14;
+$grey: #cccccc;
+$grey-light: #f9f9f9;
+$blue: #64b4fa;
+$blue-light: #c1e1fd;
+
+@font-face {
+  font-family: "AvertaRegular";
+  src: local("AvertaRegular"),
+    url("./assets/fonts/AvertaDemoPECuttedDemo-Regular.otf") format("opentype");
+}
+@font-face {
+  font-family: "AvertaExtraBold";
+  src: local("AvertaExtraBold"),
+    url("./assets/fonts/AvertaDemoPE-ExtraBold.otf") format("opentype");
+}
