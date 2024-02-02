@@ -1,0 +1,12 @@
+@import '../../styles.scss';
+.MuiPaper-root.navbar {
+    position: static;
+    background-color: $grey-light;
+    color: $black;
+
+    .loginBtn {
+         border: 1px solid $yellow-gold;
+         border-radius: 0;
+         text-transform: capitalize;
+    }
+}
