@@ -17,6 +17,7 @@ import {
 import TextCard from "../../components/textCard/TextCard";
 import Video from "../../components/video/Video";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const theme = useTheme();
@@ -26,6 +27,11 @@ function Home() {
     if (targetRef.current) {
       targetRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+  const navigate = useNavigate();
+
+  const goToSearch = (area: string) => () => {
+    navigate(`/search-villas/${area}`);
   };
 
   return (
@@ -270,24 +276,28 @@ function Home() {
                     alt={"North Sicily"}
                     title={"North Sicily"}
                     description={"32 Villas"}
+                    onClick={goToSearch("north")}
                   />
                   <GradientCover
                     imgUrl={"/src/assets/images/sicily2.jpg"}
                     alt={"South Sicily"}
                     title={"South Sicily"}
                     description={"16 Villas"}
+                    onClick={goToSearch("south")}
                   />
                   <GradientCover
                     imgUrl={"/src/assets/images/sicily3.jpg"}
                     alt={"West Sicily"}
                     title={"West Sicily"}
                     description={"22 Villas"}
+                    onClick={goToSearch("west")}
                   />
                   <GradientCover
                     imgUrl={"/src/assets/images/sicily4.jpg"}
                     alt={"East Sicily"}
                     title={"East Sicily"}
                     description={"18 Villas"}
+                    onClick={goToSearch("east")}
                   />
                 </Carousel>
               </Grid>
@@ -305,24 +315,28 @@ function Home() {
                     alt={"North Sicily"}
                     title={"North Sicily"}
                     description={"32 Villas"}
+                    onClick={goToSearch("north")}
                   />
                   <GradientCover
                     imgUrl={"/src/assets/images/sicily2.jpg"}
                     alt={"South Sicily"}
                     title={"South Sicily"}
                     description={"16 Villas"}
+                    onClick={goToSearch("south")}
                   />
                   <GradientCover
                     imgUrl={"/src/assets/images/sicily3.jpg"}
                     alt={"West Sicily"}
                     title={"West Sicily"}
                     description={"22 Villas"}
+                    onClick={goToSearch("west")}
                   />
                   <GradientCover
                     imgUrl={"/src/assets/images/sicily4.jpg"}
                     alt={"East Sicily"}
                     title={"East Sicily"}
                     description={"18 Villas"}
+                    onClick={goToSearch("east")}
                   />
                 </Grid>
               </>

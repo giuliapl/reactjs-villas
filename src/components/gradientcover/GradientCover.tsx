@@ -8,17 +8,19 @@ interface GradientCoverProps {
   title?: string;
   description?: string;
   alt?: string;
+  onClick: () => void;
 }
 export default function GradientCover(props: GradientCoverProps) {
   return (
     <Card
+      onClick={props.onClick}
       sx={{
         minHeight: "320px",
         width: 180,
         "&:hover": {
           cursor: "pointer",
           transition: "transform .2s",
-          transform: "scale(1.07)"
+          transform: "scale(1.07)",
         },
       }}
     >

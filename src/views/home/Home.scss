@@ -1,5 +1,10 @@
 @import '../../styles.scss';
 
+:root {
+  font-family: "AvertaRegular";
+  background-color: $grey-light;
+}
+
 .underlight {
     text-decoration: underline;
     text-decoration-color: $blue-light;
@@ -11,6 +16,7 @@
     
 
 }
+
 .hr {
     width: 7%;
     margin: 1em;
