@@ -9,7 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import SearchBar from "../searchbar/SearchBar";
+import SearchBar from "../searchBar/SearchBar";
 import "./NavBar.scss";
 import { useMediaQuery, useTheme } from "@mui/material";
 
@@ -109,7 +109,7 @@ function NavBar() {
             ))}
             </Box>
             <SearchBar />
-            <Button color="inherit" className="loginBtn">
+            <Button className="loginBtn">
               Login
             </Button>
           </Box>
