@@ -16,3 +16,10 @@
     margin: 1em;
     border: 1px solid $yellow-gold;
 }
+
+.MuiButtonBase-root.cta-btn {
+    background-color: $yellow-gold;
+    color: white;
+    padding: 1.3em;
+    margin-top: 1em;
+}
