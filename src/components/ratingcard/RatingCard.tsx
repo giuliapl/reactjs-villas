@@ -1,25 +1,28 @@
 import { Box, Card } from "@mui/joy";
 import { Rating } from "@mui/material";
 
-export default function RatingCard() {
+interface RatingCardProps {
+  description: string;
+  author: string;
+  rating: number;
+}
+
+export default function RatingCard(props: RatingCardProps) {
   return (
-    <Card sx={{ minHeight: '280px', width: 240 }}>
-      <p>
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of
-        using Lorem Ipsum is that it has a more-or-less normal distribution of
-        letters, as opposed to using 'Content here, content here', making it
-        look like readable English.
-      </p>
+    <Card
+      sx={{ minHeight: "280px", width: 240, border: "none", boxshadow: "none" }}
+    >
+      <p>{props.description}</p>
       <Box
         sx={{
           "& > legend": { mt: 2 },
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-evenly",
         }}
       >
-        <Rating name="read-only"
-        value={3}
-        readOnly disabled />
-        <p>Luke Skywalker</p>
+        <Rating name="read-only" value={props.rating} readOnly disabled />
+        <p>{props.author}</p>
       </Box>
     </Card>
   );
