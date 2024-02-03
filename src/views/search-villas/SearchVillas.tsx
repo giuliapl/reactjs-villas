@@ -2,9 +2,38 @@ import { Box, Grid } from "@mui/material";
 import "./SearchVillas.scss";
 import SideBar from "../../components/sidebar/SideBar";
 import FavCard from "../../components/favCard/FavCard";
+import { Dayjs } from "dayjs";
 
 export default function SearchVillas() {
   const items = ["item1", "item2", "item3", "item4"];
+  const handleFilterApply = (
+    ideas: string[],
+    experiences: string[],
+    location: string,
+    airport: string,
+    dateFrom: Dayjs | null,
+    dateTo: Dayjs | null,
+    adults: number,
+    kids: number,
+    infants: number,
+    bedrooms: string,
+    priceRange: number[]
+  ) => {
+    console.group(
+      "par",
+      ideas,
+      experiences,
+      location,
+      airport,
+      dateFrom,
+      dateTo,
+      adults,
+      kids,
+      infants,
+      bedrooms,
+      priceRange
+    );
+  };
   return (
     <>
       <Box sx={{ flexGrow: 1 }} style={{ padding: "2em" }}>
@@ -20,7 +49,7 @@ export default function SearchVillas() {
           <Grid item container xs={12}>
             <Grid item container>
               <Grid item xs={2}>
-                <SideBar />
+                <SideBar onFilterApply={handleFilterApply} />
               </Grid>
               <Grid item container rowSpacing={2} xs={10}>
                 {items.map((el, i) => {
