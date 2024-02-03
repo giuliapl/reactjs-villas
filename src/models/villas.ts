@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs"
+
 export interface Villa {
     location: string
     bookedDates: BookedDates[]
@@ -5,14 +7,14 @@ export interface Villa {
     price: number
     tags: string[]
     currency: string
-    experiences?: string[]
-    airport?: string
-    adults?: number
-    children?: number
-    infants?: number
+    experiences: string[]
+    airport: string
+    adults: number
+    kids: number
+    infants: number
 }
 
-interface BookedDates {
-    dateFrom: Date
-    dateTo: Date
+export interface BookedDates {
+    dateFrom: Dayjs
+    dateTo: Dayjs
 }

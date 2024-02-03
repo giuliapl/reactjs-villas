@@ -11,9 +11,9 @@ export default function ExclusiveToggleFilter(
 ) {
   const [value, setValue] = React.useState<string>("");
   const options = ["€", "$", "£", "&"];
-  const handleValueChange = (_event: React.MouseEvent, newValue: string) => {
-    setValue(newValue);
-    props.onChange(newValue);
+  const handleValueChange = (_event: React.MouseEvent, newValue: string | null) => {
+    setValue(newValue!);
+    props.onChange(newValue!);
   };
 
   return (
