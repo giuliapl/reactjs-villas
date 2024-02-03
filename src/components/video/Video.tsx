@@ -1,34 +1,34 @@
 import {
-  faArrowDownLong,
   faCirclePlay,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box } from "@mui/material";
 import './Video.scss';
+import { useRef, useState } from "react";
 
 export default function Video() {
+  const videoRef = useRef<null | HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleTogglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        backgroundColor: "inherit",
-        width: "100%",
-        alignItems: "end"
-      }}
-    >
-      <video style={{ position: "relative" }}>
+    <div className="video-container">
+      <video onClick={handleTogglePlay} ref={videoRef} style={{ position: "relative" }}>
         <source src={"/src/assets/videos/video.mp4"} type="video/mp4" />
       </video>
-
-      <FontAwesomeIcon
+      {!isPlaying && <FontAwesomeIcon
+        onClick={handleTogglePlay}
         icon={faCirclePlay}
         className="icon-player"
-      />
-      <FontAwesomeIcon
-        icon={faArrowDownLong}
-        className="icon-arrow"
-      />
-    </Box>
+      />}
+    </div>
   );
 }

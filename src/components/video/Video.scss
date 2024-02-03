@@ -3,16 +3,14 @@
     z-index: 1;
     color: white;
     font-size: 3.5em;
-    align-self: center;
-}
-
-.icon-arrow {
-    position: absolute;
-    z-index: 1;
-    color: white;
-    font-size: 3.5em;
-    padding: .3em;
     &:hover {
         cursor: pointer;
     }
+}
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
