@@ -6,6 +6,7 @@ import Carousel from "../../components/carousel/Carousel";
 import GradientCover from "../../components/gradientCover/GradientCover";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowDownLong,
   faGem,
   faGift,
   faQuoteLeft,
@@ -15,22 +16,51 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import TextCard from "../../components/textCard/TextCard";
 import Video from "../../components/video/Video";
+import { useRef } from "react";
 
 function Home() {
   const theme = useTheme();
   const isExtraSmallSize = useMediaQuery(theme.breakpoints.down("md"));
+  const targetRef = useRef<null | HTMLDivElement>(null);
+  const scrollToElement = () => {
+    if (targetRef.current) {
+      targetRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
       <NavBar />
       <Box sx={{ flexGrow: 1 }} style={{ padding: "2em" }}>
         <Grid container rowSpacing={8}>
+          <Grid item></Grid>
           <Grid item xs={12}>
-            <Video />
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                backgroundColor: "inherit",
+                width: "100%",
+                alignItems: "end",
+              }}
+            >
+              <Video />
+              <FontAwesomeIcon
+                onClick={scrollToElement}
+                icon={faArrowDownLong}
+                className="icon-arrow"
+              />
+            </Box>
           </Grid>
 
           <Grid container item>
-            <Grid item xs={12} md={6} sx={{ paddingRight: "4em" }}>
+            <Grid
+              ref={targetRef}
+              item
+              xs={12}
+              md={6}
+              sx={{ paddingRight: "4em" }}
+            >
               <h2 style={{ fontWeight: "900" }}>
                 It is a long established fact that a reader will be distracted
                 by the readable content of a page when looking at its layout.
