@@ -39,79 +39,75 @@ function NavBar() {
     <AppBar className="navbar" elevation={0}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-between" }}>
-          {isExtraSmallSize && (
-            <>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </>
-          )}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
+          <Box
             sx={{
-              ml: 2,
+              flexGrow: 1,
               display: "flex",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-              alignSelf: "center",
+              justifyContent: "space-between",
             }}
           >
-            LOGO
-          </Typography>
-          <Box>
-            {!isExtraSmallSize && pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  color: "black",
-                  textTransform: "capitalize",
-                }}
-              >
-                {page}
-              </Button>
-            ))}
+            {isExtraSmallSize && (
+              <>
+              <Box>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  disableScrollLock={true}
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                >
+                  {pages.map((page, index) => (
+                    <MenuItem key={index}>
+                      <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+                </Box>
+              </>
+            )}
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                ml: 2,
+                display: "flex",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+                alignSelf: "center",
+              }}
+            >
+              LOGO
+            </Typography>
+            <Box>
+              {!isExtraSmallSize &&
+                pages.map((page) => (
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      color: "black",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {page}
+                  </Button>
+                ))}
             </Box>
             <SearchBar />
-            <Button className="loginBtn">
-              Login
-            </Button>
+            <Button className="loginBtn">Login</Button>
           </Box>
         </Toolbar>
       </Container>
