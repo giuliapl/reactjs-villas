@@ -1,14 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './styles.scss'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./styles.scss";
 import "./assets/fonts/AvertaDemoPECuttedDemo-Regular.otf";
-import "./assets/fonts/AvertaDemoPE-ExtraBold.otf"
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import NotFound from './views/notFound/NotFound.tsx';
-import SearchVillas from './views/search-villas/SearchVillas.tsx';
-import Home from './views/home/Home.tsx';
+import "./assets/fonts/AvertaDemoPE-ExtraBold.otf";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import NotFound from "./views/notFound/NotFound.tsx";
+import SearchVillas from "./views/search-villas/SearchVillas.tsx";
+import Home from "./views/home/Home.tsx";
+import NavBar from "./components/navBar/NavBar.tsx";
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +31,7 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
-     <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+    <NavBar />
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);

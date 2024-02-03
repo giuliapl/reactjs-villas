@@ -1,6 +1,5 @@
 import { Box, Button, Grid, useMediaQuery, useTheme } from "@mui/material";
 import "./Home.scss";
-import NavBar from "../../components/navBar/NavBar";
 import RatingCard from "../../components/ratingCard/RatingCard";
 import Carousel from "../../components/carousel/Carousel";
 import GradientCover from "../../components/gradientCover/GradientCover";
@@ -36,7 +35,6 @@ function Home() {
 
   return (
     <>
-      <NavBar />
       <Box sx={{ flexGrow: 1 }} style={{ padding: "2em" }}>
         <Grid container rowSpacing={8}>
           <Grid item></Grid>
