@@ -12,7 +12,7 @@ import {
   faChildren,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { Grid } from "@mui/material";
+import { Grid, useMediaQuery, useTheme } from "@mui/material";
 import { Villa } from "../../models/villas";
 
 interface FavCardProps {
@@ -20,8 +20,12 @@ interface FavCardProps {
 }
 
 export default function FavCard(props: FavCardProps) {
+  const theme = useTheme();
+  const isExtraSmallSize = useMediaQuery(theme.breakpoints.down(400));
+  const isSmallSize = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <Card variant="outlined" sx={{ width: "40vh" }}>
+    <Card variant="outlined" sx={{ width: isExtraSmallSize ? "38vh" : isSmallSize ? "32vh" : "50vh" }}>
       <CardOverflow>
         <AspectRatio ratio="1" sx={{ postion: "relative" }}>
           <img src={props.villa.imgUrl} loading="lazy" alt="villa's image" />
@@ -63,7 +67,7 @@ export default function FavCard(props: FavCardProps) {
       <CardContent>
         <Typography level="title-md">
           From
-          <span style={{ textDecoration: "line-through", color: "grey" }}>
+          <span style={{ textDecoration: "line-through", color: "grey", paddingLeft: ".5em" }}>
             {props.villa.currency}
             {props.villa.oldPrice}
           </span>
