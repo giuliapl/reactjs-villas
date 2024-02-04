@@ -1,9 +1,9 @@
 import * as React from "react";
 import dayjs, { Dayjs } from "dayjs";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Grid } from "@mui/material";
 
 interface DatesFilterProps {
   onChange: (date: Dayjs | null, type: DateType) => void;
@@ -26,20 +26,26 @@ export default function DatesFilter(props: DatesFilterProps) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={["DatePicker", "DatePicker"]}>
-        <DatePicker
-          label="From date"
-          minDate={dayjs()}
-          value={dateFrom}
-          onChange={handleDateChange("from")}
-        />
-        <DatePicker
-          label="To date"
-          minDate={dateFrom || dayjs()}
-          value={dateTo}
-          onChange={handleDateChange("to")}
-        />
-      </DemoContainer>
+      <Grid container>
+        <Grid item xs={6}>
+          <DatePicker
+            sx={{ width: "100%" }}
+            label="Check-in"
+            minDate={dayjs()}
+            value={dateFrom}
+            onChange={handleDateChange("from")}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <DatePicker
+            sx={{ width: "100%" }}
+            label="Check-out"
+            minDate={dateFrom || dayjs()}
+            value={dateTo}
+            onChange={handleDateChange("to")}
+          />
+        </Grid>
+      </Grid>
     </LocalizationProvider>
   );
 }

@@ -50,6 +50,7 @@ export default function SearchVillas() {
     kids: number,
     infants: number,
     bedrooms: string,
+    currency: string,
     priceRange: number[]
   ) => {
     const filteredVillas: Villa[] = fullVillas.filter((v: Villa) => {

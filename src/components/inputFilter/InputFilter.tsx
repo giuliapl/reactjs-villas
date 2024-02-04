@@ -34,20 +34,22 @@ export default function InputFilter(props: InputFilterProps) {
   const Btns = () => (
     <>
       <IconButton onClick={handleChange("add")}>
-        <AddIcon />
+        <AddIcon  sx={{width: "2.5vh"}} />
       </IconButton>
-      <IconButton onClick={handleChange("rm")}>
-        <RemoveIcon />
+      <IconButton  onClick={handleChange("rm")}>
+        <RemoveIcon sx={{width: "2.5vh"}} />
       </IconButton>
     </>
   );
 
   return (
+    <>
+    <label style={{ fontSize: "small" }}>{props.label}</label>
     <TextField
       id="standard-name"
-      label={props.label}
       value={value}
       InputProps={{ endAdornment: <Btns /> }}
     />
+    </>
   );
 }
