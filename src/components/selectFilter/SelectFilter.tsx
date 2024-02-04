@@ -1,20 +1,17 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface SelectFilterProps {
+  onChange: (selectedOption: string) => void;
   label: string;
   options: string[];
-  onChange: (selectedOption: string) => void;
+  value: string;
 }
 
 export default function SelectFilter(props: SelectFilterProps) {
-  const [opt, setOpt] = React.useState("");
-
   const handleChange = (event: SelectChangeEvent) => {
-    setOpt(event.target.value as string);
     props.onChange(event.target.value as string);
   };
 
@@ -23,9 +20,10 @@ export default function SelectFilter(props: SelectFilterProps) {
       <label style={{ fontSize: "small" }}>{props.label}</label>
       <FormControl fullWidth sx={{ backgroundColor: "#f9f9f9" }}>
         <Select
+          inputProps={{ MenuProps: { disableScrollLock: true } }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={opt}
+          value={props.value}
           onChange={handleChange}
         >
           {props.options.map((o, i) => {

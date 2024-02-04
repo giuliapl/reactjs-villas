@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Theme, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
@@ -30,19 +29,15 @@ interface MultiSelectFilterProps {
   label: string;
   tags: string[];
   onChange: (values: string[]) => void;
+  value: string[];
 }
 export default function MultiSelectFilter(props: MultiSelectFilterProps) {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState<string[]>([]);
 
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+  const handleChange = (event: SelectChangeEvent<string[]>) => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
     props.onChange(typeof value === "string" ? value.split(",") : value);
   };
 
@@ -52,7 +47,7 @@ export default function MultiSelectFilter(props: MultiSelectFilterProps) {
       <FormControl sx={{ width: "100%", backgroundColor: "#f9f9f9" }}>
         <Select
           multiple
-          value={personName}
+          value={props.value}
           onChange={handleChange}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
@@ -67,7 +62,7 @@ export default function MultiSelectFilter(props: MultiSelectFilterProps) {
             <MenuItem
               key={tag}
               value={tag}
-              style={getStyles(tag, personName, theme)}
+              style={getStyles(tag, props.value, theme)}
             >
               {tag}
             </MenuItem>

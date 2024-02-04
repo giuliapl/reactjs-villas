@@ -1,17 +1,14 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
 interface SliderFilterProps {
-  label: string;
   onChange: (range: number[]) => void;
+  label: string;
   currency?: string;
+  value: number[];
 }
 export default function SliderFilter(props: SliderFilterProps) {
-  const [value, setValue] = React.useState<number[]>([100, 50000]);
-
   const handleChange = (_: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
     props.onChange(newValue as number[]);
   };
 
@@ -22,7 +19,7 @@ export default function SliderFilter(props: SliderFilterProps) {
         max={50000}
         min={100}
         getAriaLabel={() => props.label}
-        value={value}
+        value={props.value}
         onChange={handleChange}
         valueLabelDisplay="auto"
         valueLabelFormat={(n: number) => {

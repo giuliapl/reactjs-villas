@@ -52,8 +52,10 @@ export default function SideBar(props: SideBarProps) {
   const [infants, setInfants] = React.useState<number>(0);
   const [bedrooms, setBedrooms] = React.useState<string>("");
   const [currency, setCurrency] = React.useState<string>("");
-  const [priceRange, setPriceRange] = React.useState<number[]>([]);
+  const [priceRange, setPriceRange] = React.useState<number[]>([0, 50000]);
 
+  const max = 6;
+  const min = 0;
   const ideasOptions = [
     "Pool",
     "Luxury",
@@ -66,6 +68,7 @@ export default function SideBar(props: SideBarProps) {
   const airportOptions = ["Palermo Airport", "Noto Airport"];
   const bedroomsOptions = ["1-2", "3-4", "4-5"];
   const tagsOptions = ["Cooking Experiences", "Sicily Outdoors"];
+  const currencyOptions = ["€", "$", "£", "&"];
 
   const toggleDrawer =
     (anchor: string, open: boolean) =>
@@ -96,14 +99,44 @@ export default function SideBar(props: SideBarProps) {
     if (type === "from") setDateFrom(date);
     if (type === "to") setDateTo(date);
   };
-  const handleAdultsFilter = (value: number | null) => {
-    setAdults(value || 0);
+  const handleAdultsFilter = (value: string) => {
+    if (value === "add") {
+      setAdults((prevValue) => {
+        if (max !== null ? prevValue < max : true) prevValue = prevValue + 1;
+        return prevValue;
+      });
+    } else if (value === "rm") {
+      setAdults((prevValue) => {
+        if (min !== null ? prevValue > min : true) prevValue = prevValue - 1;
+        return prevValue;
+      });
+    }
   };
-  const handleKidsFilter = (value: number | null) => {
-    setKids(value || 0);
+  const handleKidsFilter = (value: string) => {
+    if (value === "add") {
+      setKids((prevValue) => {
+        if (max !== null ? prevValue < max : true) prevValue = prevValue + 1;
+        return prevValue;
+      });
+    } else if (value === "rm") {
+      setKids((prevValue) => {
+        if (min !== null ? prevValue > min : true) prevValue = prevValue - 1;
+        return prevValue;
+      });
+    }
   };
-  const handleInfantsFilter = (value: number | null) => {
-    setInfants(value || 0);
+  const handleInfantsFilter = (value: string) => {
+    if (value === "add") {
+      setInfants((prevValue) => {
+        if (max !== null ? prevValue < max : true) prevValue = prevValue + 1;
+        return prevValue;
+      });
+    } else if (value === "rm") {
+      setInfants((prevValue) => {
+        if (min !== null ? prevValue > min : true) prevValue = prevValue - 1;
+        return prevValue;
+      });
+    }
   };
   const handleBedroomsFilter = (value: string) => {
     setBedrooms(value);
@@ -131,6 +164,21 @@ export default function SideBar(props: SideBarProps) {
       priceRange
     );
     setState({ ...state, ["left"]: false });
+  };
+
+  const onReset = () => {
+    setIdeas([]);
+    setExperiences([]);
+    setLocation("");
+    setAirport("");
+    setDateFrom(null);
+    setDateTo(null);
+    setAdults(0);
+    setKids(0);
+    setInfants(0);
+    setBedrooms("");
+    setCurrency("");
+    setPriceRange([0, 50000]);
   };
 
   const filters = () => (
@@ -176,6 +224,7 @@ export default function SideBar(props: SideBarProps) {
             onChange={handleIdeasFilter}
             options={ideasOptions}
             label="Villas Ideas"
+            value={ideas}
           />
         </Grid>
         <Grid item xs={12}>
@@ -183,6 +232,7 @@ export default function SideBar(props: SideBarProps) {
             label="Experiences"
             tags={tagsOptions}
             onChange={handleExperiencesFilter}
+            value={experiences}
           />
         </Grid>
         <Grid item container columnSpacing={4} xs={12}>
@@ -191,6 +241,7 @@ export default function SideBar(props: SideBarProps) {
               onChange={handleLocationFilter}
               label="Search by location"
               options={locationOptions}
+              value={location}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -198,12 +249,17 @@ export default function SideBar(props: SideBarProps) {
               onChange={handleAirportFilter}
               label="Search by airport"
               options={airportOptions}
+              value={airport}
             />
           </Grid>
         </Grid>
 
         <Grid item xs={12}>
-          <DatesFilter onChange={handleDatesFilter} />
+          <DatesFilter
+            onChange={handleDatesFilter}
+            dateFromValue={dateFrom}
+            dateToValue={dateTo}
+          />
         </Grid>
 
         <Grid item container xs={12}>
@@ -211,25 +267,22 @@ export default function SideBar(props: SideBarProps) {
             <Grid item xs={12} md={4}>
               <InputFilter
                 onChange={handleAdultsFilter}
-                min={0}
-                max={6}
                 label="Adults"
+                value={adults}
               />
             </Grid>
             <Grid item xs={12} md={4}>
               <InputFilter
                 onChange={handleKidsFilter}
-                min={0}
-                max={6}
                 label="Children (age 2-12)"
+                value={kids}
               />
             </Grid>
             <Grid item xs={12} md={4}>
               <InputFilter
                 onChange={handleInfantsFilter}
-                min={0}
-                max={6}
                 label="Infants (age >2)"
+                value={infants}
               />
             </Grid>
           </Grid>
@@ -239,6 +292,7 @@ export default function SideBar(props: SideBarProps) {
                 onChange={handleBedroomsFilter}
                 label="Bedrooms"
                 options={bedroomsOptions}
+                value={bedrooms}
               />
             </Grid>
           )}
@@ -250,6 +304,7 @@ export default function SideBar(props: SideBarProps) {
                 onChange={handleBedroomsFilter}
                 label="Bedrooms"
                 options={bedroomsOptions}
+                value={bedrooms}
               />
             </Grid>
           )}
@@ -257,6 +312,8 @@ export default function SideBar(props: SideBarProps) {
             <ExclusiveToggleFilter
               label="Currency"
               onChange={handleCurrencyFilter}
+              options={currencyOptions}
+              value={currency}
             />
           </Grid>
           <Grid item xs={8}>
@@ -264,6 +321,7 @@ export default function SideBar(props: SideBarProps) {
               onChange={handlePriceRangeFilter}
               label="Price range"
               currency={currency}
+              value={priceRange}
             />
           </Grid>
         </Grid>
@@ -273,7 +331,9 @@ export default function SideBar(props: SideBarProps) {
           </Button>
         </Grid>
         <Grid item xs={6} md={12} display={"flex"} justifyContent={"center"}>
-          <Button className="reset-filter-btn">RESET FILTER</Button>
+          <Button className="reset-filter-btn" onClick={onReset}>
+            RESET FILTER
+          </Button>
         </Grid>
       </Grid>
     </Box>
@@ -288,7 +348,19 @@ export default function SideBar(props: SideBarProps) {
             <Button onClick={toggleDrawer("left", true)}>FILTER SEARCH</Button>
           </Box>
         ) : (
-          <Button onClick={toggleDrawer("left", true)}>FILTRA</Button>
+          <Button
+            onClick={toggleDrawer("left", true)}
+            sx={{
+              color: "black",
+              backgroundColor: "#cccccc",
+              textTransform: "capitalize",
+              borderRadius: "0",
+              width: "15vh",
+              opacity: ".7",
+            }}
+          >
+            Filtra
+          </Button>
         )}
 
         <Drawer

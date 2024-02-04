@@ -6,26 +6,25 @@ import { Box } from "@mui/material";
 interface ExclusiveToggleFilterProps {
   onChange: (selectedOption: string) => void;
   label: string;
+  options: string[];
+  value: string;
 }
 
 export default function ExclusiveToggleFilter(
   props: ExclusiveToggleFilterProps
 ) {
-  const [value, setValue] = React.useState<string>("");
-  const options = ["€", "$", "£", "&"];
   const handleValueChange = (
     _event: React.MouseEvent,
     newValue: string | null
   ) => {
-    setValue(newValue!);
     props.onChange(newValue!);
   };
 
   return (
     <Box sx={{ paddingLeft: { xs: "3em", md: "0" } }}>
       <label style={{ fontSize: "small" }}>{props.label}</label>
-      <ToggleButtonGroup value={value} onChange={handleValueChange}>
-        {options.map((o, i) => {
+      <ToggleButtonGroup value={props.value} onChange={handleValueChange}>
+        {props.options.map((o, i) => {
           return (
             <Button
               key={i}

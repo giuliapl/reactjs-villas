@@ -1,17 +1,21 @@
 import { Box, Button, Grid, useMediaQuery, useTheme } from "@mui/material";
-import "./SearchVillas.scss";
-import SideBar from "../../components/sidebar/SideBar";
-import FavCard from "../../components/favCard/FavCard";
 import { Dayjs } from "dayjs";
+import React, { useEffect, useState } from "react";
+import FavCard from "../../components/favCard/FavCard";
+import SelectFilter from "../../components/selectFilter/SelectFilter";
+import SideBar from "../../components/sidebar/SideBar";
 import { VILLAS_MOCK } from "../../mocks/mock";
-import { useEffect, useState } from "react";
 import { BookedDates, Villa } from "../../models/villas";
+import "./SearchVillas.scss";
 
 export default function SearchVillas() {
   const [villas, setVillas] = useState<Villa[]>([]);
   const theme = useTheme();
   const isExtraSmallSize = useMediaQuery(theme.breakpoints.down("md"));
   const fullVillas: Villa[] = VILLAS_MOCK;
+  const orderByOptions = ["Increasing Price", "Decreasing Price"];
+  const [orderByValue, setOrderByValue] = React.useState<string>("");
+
   useEffect(() => {
     // simulation of http request
     setVillas(VILLAS_MOCK);
@@ -37,6 +41,10 @@ export default function SearchVillas() {
       selectedDate?.isSame(bookedDate.dateFrom) ||
       selectedDate?.isSame(bookedDate.dateTo)
     );
+  };
+
+  const handleOrderByChange = (value: string) => {
+    setOrderByValue(value);
   };
 
   const handleFilterApply = (
@@ -80,19 +88,6 @@ export default function SearchVillas() {
           ? priceRange[0] <= v.price && v.price <= priceRange[1]
           : true;
 
-      console.group(
-        tagsPreCond,
-        expPreCond,
-        locationPreCond,
-        airportPreCond,
-        datesPreCond,
-        adultsPreCond,
-        kidsPreCond,
-        infantsPreCond,
-        bedroomsPreCond,
-        priceRangePreCond
-      );
-
       return (
         tagsPreCond &&
         expPreCond &&
@@ -124,7 +119,18 @@ export default function SearchVillas() {
                   }}
                 >
                   <SideBar onFilterApply={handleFilterApply} />
-                  <Button className="mobile-filter-btn">Ordina</Button>
+                  <Button
+                    sx={{
+                      color: "black",
+                      backgroundColor: "#cccccc",
+                      textTransform: "capitalize",
+                      borderRadius: "0",
+                      width: "15vh",
+                      opacity: ".7",
+                    }}
+                  >
+                    Ordina
+                  </Button>
                 </Box>
               </Grid>
             )}
@@ -138,8 +144,21 @@ export default function SearchVillas() {
               <p>23 results found</p>
             </Grid>
             {!isExtraSmallSize && (
-              <Grid item md={6}>
-                <div>order by</div>
+              <Grid
+                item
+                container
+                md={5}
+                alignItems={"center"}
+                justifyContent={"center"}
+              >
+                <Grid item md={7}>
+                  <SelectFilter
+                    onChange={handleOrderByChange}
+                    label="Order By"
+                    options={orderByOptions}
+                    value={orderByValue}
+                  />
+                </Grid>
               </Grid>
             )}
           </Grid>
