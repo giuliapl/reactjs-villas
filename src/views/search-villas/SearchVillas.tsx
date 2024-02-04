@@ -181,10 +181,10 @@ export default function SearchVillas() {
               </>
             )}
             <Grid item container rowSpacing={2} xs={12} md={10}>
-              {villas.map((_el, i) => {
+              {villas.map((v: Villa, i) => {
                 return (
                   <Grid item key={i} md={6} xs={12}>
-                    <FavCard />
+                    <FavCard villa={v} />
                   </Grid>
                 );
               })}

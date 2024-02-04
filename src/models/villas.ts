@@ -12,6 +12,10 @@ export interface Villa {
     adults: number
     kids: number
     infants: number
+    imgUrl: string
+    name: string
+    oldPrice: number
+    bathrooms: number
 }
 
 export interface BookedDates {

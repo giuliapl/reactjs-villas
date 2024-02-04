@@ -1,58 +1,122 @@
-import AspectRatio from '@mui/joy/AspectRatio';
-import Card from '@mui/joy/Card';
-import CardContent from '@mui/joy/CardContent';
-import CardOverflow from '@mui/joy/CardOverflow';
-import Divider from '@mui/joy/Divider';
-import Typography from '@mui/joy/Typography';
-import IconButton from '@mui/joy/IconButton';
-import Link from '@mui/joy/Link';
-import Favorite from '@mui/icons-material/Favorite';
+import AspectRatio from "@mui/joy/AspectRatio";
+import Card from "@mui/joy/Card";
+import CardContent from "@mui/joy/CardContent";
+import CardOverflow from "@mui/joy/CardOverflow";
+import Typography from "@mui/joy/Typography";
+import IconButton from "@mui/joy/IconButton";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBath,
+  faBed,
+  faChildren,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
+import { Grid } from "@mui/material";
+import { Villa } from "../../models/villas";
 
-export default function FavCard() {
+interface FavCardProps {
+  villa: Villa;
+}
+
+export default function FavCard(props: FavCardProps) {
   return (
     <Card variant="outlined" sx={{ width: "40vh" }}>
       <CardOverflow>
-        <AspectRatio ratio="2">
-          <img
-            src="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&fit=crop&w=318"
-            srcSet="https://images.unsplash.com/photo-1532614338840-ab30cf10ed36?auto=format&fit=crop&w=318&dpr=2 2x"
-            loading="lazy"
-            alt=""
-          />
+        <AspectRatio ratio="1" sx={{ postion: "relative" }}>
+          <img src={props.villa.imgUrl} loading="lazy" alt="villa's image" />
         </AspectRatio>
-        <IconButton
-          aria-label="Like minimal photography"
-          size="md"
-          variant="solid"
-          color="danger"
+        <Grid
+          container
+          xs={12}
           sx={{
-            position: 'absolute',
-            zIndex: 2,
-            borderRadius: '50%',
-            right: '1rem',
-            bottom: 0,
-            transform: 'translateY(50%)',
+            position: "absolute",
+            bottom: "0",
+            right: "0",
+            background: "rgba(0, 0, 0, 0.6)",
+            padding: "1em",
           }}
         >
-          <Favorite />
-        </IconButton>
+          <Grid item xs={6}>
+            <Typography level="title-lg" sx={{ color: "white" }}>
+              {props.villa.name}
+            </Typography>
+            <Typography level="title-sm">
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                style={{ color: "white" }}
+              />
+              <span style={{ color: "white", marginLeft: ".5em" }}>
+                {" "}
+                {props.villa.location}
+              </span>
+            </Typography>
+          </Grid>
+
+          <Grid item xs={6} sx={{ display: "flex", justifyContent: "end" }}>
+            <IconButton aria-label="Like minimal photography" size="md">
+              <StarBorderIcon fontSize={"large"} sx={{ color: "white" }} />
+            </IconButton>
+          </Grid>
+        </Grid>
       </CardOverflow>
       <CardContent>
         <Typography level="title-md">
-          <Link href="#multiple-actions" overlay underline="none">
-            Yosemite National Park
-          </Link>
+          From
+          <span style={{ textDecoration: "line-through", color: "grey" }}>
+            {props.villa.currency}
+            {props.villa.oldPrice}
+          </span>
+          <span
+            style={{
+              fontSize: "1.5em",
+              fontWeight: "bolder",
+              marginLeft: ".5em",
+            }}
+          >
+            {props.villa.currency}
+            {props.villa.price}
+          </span>
+          /per week
         </Typography>
         <Typography level="body-sm">
-          <Link href="#multiple-actions">California</Link>
+          <FontAwesomeIcon
+            icon={faChildren}
+            fontSize={"1.3em"}
+            color={"grey"}
+            style={{ marginRight: ".5em"}}
+          />
+          {props.villa.adults + props.villa.kids}
+          <FontAwesomeIcon
+            icon={faBed}
+            style={{
+              marginLeft: ".5em",
+              marginRight: ".5em",
+              fontSize: "1.3em",
+              color: "grey",
+            }}
+          />
+          {props.villa.bedrooms}
+          <FontAwesomeIcon
+            icon={faBath}
+            style={{
+              marginLeft: ".5em",
+              marginRight: ".5em",
+              fontSize: "1.3em",
+              color: "grey",
+            }}
+          />
+          {props.villa.bathrooms}
         </Typography>
       </CardContent>
       <CardOverflow variant="soft">
-        <Divider inset="context" />
         <CardContent orientation="horizontal">
-          <Typography level="body-xs">6.3k views</Typography>
-          <Divider orientation="vertical" />
-          <Typography level="body-xs">1 hour ago</Typography>
+          <Typography
+            level="body-xs"
+            sx={{ textAlign: "center", color: "grey" }}
+          >
+            {props.villa.tags.join(" / ")}
+          </Typography>
         </CardContent>
       </CardOverflow>
     </Card>
