@@ -9,7 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import SearchBar from "components/searchBar/SearchBar";
+import SearchBar from "@/components/searchBar/SearchBar";
 import "./NavBar.scss";
 import { useMediaQuery, useTheme } from "@mui/material";
 
