@@ -29,7 +29,7 @@ export default function DatesFilter(props: DatesFilterProps) {
       <Grid container>
         <Grid item xs={6}>
           <DatePicker
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", backgroundColor: "#f9f9f9" }}
             label="Check-in"
             minDate={dayjs()}
             value={dateFrom}
@@ -38,7 +38,7 @@ export default function DatesFilter(props: DatesFilterProps) {
         </Grid>
         <Grid item xs={6}>
           <DatePicker
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", backgroundColor: "#f9f9f9" }}
             label="Check-out"
             minDate={dateFrom || dayjs()}
             value={dateTo}

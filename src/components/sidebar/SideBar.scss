@@ -1,12 +1,15 @@
 @import '../../styles.scss';
 
 .container {
-    vertical-align:top;
+  display: flex;
+  align-items: center;
+  margin-top: 25vh;
+  vertical-align:top;
 	transform:rotate(7deg);
   -ms-transform:rotate(-90deg); /* IE 9 */
   -moz-transform:rotate(-90deg); /* Firefox */
   -webkit-transform:rotate(-90deg); /* Safari and Chrome */
-  -o-transform:rotate(-90deg); 
+  -o-transform:rotate(-90deg);
 }
 
 .hr {
@@ -19,8 +22,37 @@
   background-color: $yellow-gold;
   color: white;
   padding: 1em;
+  border-radius: 0;
+  width: 25vh;
+  height: 8vh;
+
+  &:hover {
+    background-color: $blue;
+  }
 }
 .MuiButtonBase-root.reset-filter-btn {
   color: $yellow-gold;
   padding: 1em;
+  border-radius: 0;
+  width: 25vh;
+  height: 8vh;
+
+  &:hover {
+    background-color: $blue;
+    color: white;
+  }
+}
+
+.filters-container-small {
+  width: 90%;
+  margin: 1em;
+}
+
+.filters-container-medium {
+  width: 90vh;
+  margin: 1em 1.5em;
+}
+
+.filters-drawer-small .MuiDrawer-paper  {
+  width: 100%;
 }

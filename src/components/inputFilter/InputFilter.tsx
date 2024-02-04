@@ -1,4 +1,4 @@
-import { IconButton, TextField } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useState } from "react";
@@ -33,23 +33,24 @@ export default function InputFilter(props: InputFilterProps) {
 
   const Btns = () => (
     <>
-      <IconButton onClick={handleChange("add")}>
-        <AddIcon  sx={{width: "2.5vh"}} />
+      <IconButton onClick={handleChange("rm")}>
+        <RemoveIcon sx={{ width: "2.5vh" }} />
       </IconButton>
-      <IconButton  onClick={handleChange("rm")}>
-        <RemoveIcon sx={{width: "2.5vh"}} />
+      <IconButton onClick={handleChange("add")}>
+        <AddIcon sx={{ width: "2.5vh" }} />
       </IconButton>
     </>
   );
 
   return (
-    <>
-    <label style={{ fontSize: "small" }}>{props.label}</label>
-    <TextField
-      id="standard-name"
-      value={value}
-      InputProps={{ endAdornment: <Btns /> }}
-    />
-    </>
+    <Box display={"flex"} flexDirection={"column"}>
+      <label style={{ fontSize: "small" }}>{props.label}</label>
+      <TextField
+        sx={{ width: "100%", backgroundColor: "#f9f9f9" }}
+        id="standard-name"
+        value={value}
+        InputProps={{ endAdornment: <Btns /> }}
+      />
+    </Box>
   );
 }

@@ -21,7 +21,7 @@ export default function SelectFilter(props: SelectFilterProps) {
   return (
     <Box>
       <label style={{ fontSize: "small" }}>{props.label}</label>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ backgroundColor: "#f9f9f9" }}>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"

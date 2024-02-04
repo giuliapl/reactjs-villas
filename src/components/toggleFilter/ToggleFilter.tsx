@@ -1,7 +1,7 @@
 import * as React from "react";
 import Button from "@mui/joy/Button";
 import ToggleButtonGroup from "@mui/joy/ToggleButtonGroup";
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 interface ToggleFilterProps {
   onChange: (selectedOptions: string[]) => void;
@@ -20,13 +20,17 @@ export default function ToggleFilter(props: ToggleFilterProps) {
     <Box>
       <label style={{ fontSize: "small" }}>{props.label}</label>
       <ToggleButtonGroup value={value} onChange={handleValueChange}>
-        {props.options.map((o, i) => {
-          return (
-            <Button sx={{ width: "100%" }} key={i} value={o}>
-              {o}
-            </Button>
-          );
-        })}
+        <Grid container>
+          {props.options.map((o, i) => {
+            return (
+              <Grid item xs={4} md={2}>
+                <Button sx={{ width: "100%", borderRadius: 0, backgroundColor: "#f9f9f9", border: "0.5px solid #cccccc", "&:hover": { backgroundColor: "#64b4fa" } }} key={i} value={o}>
+                  {o}
+                </Button>
+              </Grid>
+            );
+          })}
+        </Grid>
       </ToggleButtonGroup>
     </Box>
   );

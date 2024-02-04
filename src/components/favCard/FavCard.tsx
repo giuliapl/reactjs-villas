@@ -10,7 +10,7 @@ import Favorite from '@mui/icons-material/Favorite';
 
 export default function FavCard() {
   return (
-    <Card variant="outlined" sx={{ width: 320 }}>
+    <Card variant="outlined" sx={{ width: "40vh" }}>
       <CardOverflow>
         <AspectRatio ratio="2">
           <img

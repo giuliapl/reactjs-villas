@@ -11,7 +11,9 @@ import InputFilter from "../inputFilter/InputFilter";
 import SliderFilter from "../sliderFilter/SliderFilter";
 import MultiSelectFilter from "../multiSelectFilter/MultiSelectFilter";
 import ExclusiveToggleFilter from "../exclusiveToggleFilter/ExclusiveToggleFilter";
-import { Grid } from "@mui/material";
+import { Grid, useMediaQuery, useTheme } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface SideBarProps {
   onFilterApply: (
@@ -37,6 +39,8 @@ export default function SideBar(props: SideBarProps) {
     bottom: false,
     right: false,
   });
+  const theme = useTheme();
+  const isExtraSmallSize = useMediaQuery(theme.breakpoints.down("md"));
   const [ideas, setIdeas] = React.useState<string[]>([]);
   const [experiences, setExperiences] = React.useState<string[]>([]);
   const [location, setLocation] = React.useState<string>("");
@@ -126,12 +130,47 @@ export default function SideBar(props: SideBarProps) {
       currency,
       priceRange
     );
-    setState({ ...state, ["left"]: false })
+    setState({ ...state, ["left"]: false });
   };
 
   const filters = () => (
-    <Box role="filters" sx={{ width: "90vh", margin: "1em 1.5em" }}>
+    <Box
+      role="filters"
+      className={
+        isExtraSmallSize
+          ? "filters-container-small"
+          : "filters-container-medium"
+      }
+    >
       <Grid container rowSpacing={2}>
+        {isExtraSmallSize && (
+          <Grid
+            item
+            xs={12}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"space-between"}
+            paddingTop={"0 !important"}
+          >
+            <p
+              style={{
+                paddingLeft: "20vh",
+                fontSize: "1.5em",
+                fontWeight: "900",
+              }}
+            >
+              Filter
+            </p>
+            <FontAwesomeIcon
+              icon={faXmark}
+              fontSize={"1.7em"}
+              color={"#cccccc"}
+              cursor={"auto"}
+              onClick={() => setState({ ...state, ["left"]: false })}
+            />
+          </Grid>
+        )}
+
         <Grid item xs={12}>
           <ToggleFilter
             onChange={handleIdeasFilter}
@@ -147,14 +186,14 @@ export default function SideBar(props: SideBarProps) {
           />
         </Grid>
         <Grid item container columnSpacing={4} xs={12}>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <SelectFilter
               onChange={handleLocationFilter}
               label="Search by location"
               options={locationOptions}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <SelectFilter
               onChange={handleAirportFilter}
               label="Search by airport"
@@ -168,8 +207,8 @@ export default function SideBar(props: SideBarProps) {
         </Grid>
 
         <Grid item container xs={12}>
-          <Grid item container columnSpacing={1} xs={7}>
-            <Grid item xs={4}>
+          <Grid item container columnSpacing={1} xs={12} md={7}>
+            <Grid item xs={12} md={4}>
               <InputFilter
                 onChange={handleAdultsFilter}
                 min={0}
@@ -177,7 +216,7 @@ export default function SideBar(props: SideBarProps) {
                 label="Adults"
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <InputFilter
                 onChange={handleKidsFilter}
                 min={0}
@@ -185,7 +224,7 @@ export default function SideBar(props: SideBarProps) {
                 label="Children (age 2-12)"
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <InputFilter
                 onChange={handleInfantsFilter}
                 min={0}
@@ -194,16 +233,27 @@ export default function SideBar(props: SideBarProps) {
               />
             </Grid>
           </Grid>
-          <Grid item xs={5} display={"flex"} justifyContent={"end"}>
-            <SelectFilter
-              onChange={handleBedroomsFilter}
-              label="Bedrooms"
-              options={bedroomsOptions}
-            />
-          </Grid>
+          {!isExtraSmallSize && (
+            <Grid item md={5} display={"flex"} justifyContent={"end"}>
+              <SelectFilter
+                onChange={handleBedroomsFilter}
+                label="Bedrooms"
+                options={bedroomsOptions}
+              />
+            </Grid>
+          )}
         </Grid>
         <Grid item container columnSpacing={2} xs={12}>
-          <Grid item xs={3}>
+          {isExtraSmallSize && (
+            <Grid item md={5} display={"flex"} justifyContent={"end"}>
+              <SelectFilter
+                onChange={handleBedroomsFilter}
+                label="Bedrooms"
+                options={bedroomsOptions}
+              />
+            </Grid>
+          )}
+          <Grid item xs={3} alignSelf={"center"} marginBottom={".8em"}>
             <ExclusiveToggleFilter
               label="Currency"
               onChange={handleCurrencyFilter}
@@ -217,12 +267,12 @@ export default function SideBar(props: SideBarProps) {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12} display={"flex"}  justifyContent={"center"}>
+        <Grid item xs={6} md={12} display={"flex"} justifyContent={"center"}>
           <Button className="apply-filter-btn" onClick={onApply}>
             APPLY FILTER
           </Button>
         </Grid>
-        <Grid item xs={12} display={"flex"}  justifyContent={"center"}>
+        <Grid item xs={6} md={12} display={"flex"} justifyContent={"center"}>
           <Button className="reset-filter-btn">RESET FILTER</Button>
         </Grid>
       </Grid>
@@ -232,17 +282,23 @@ export default function SideBar(props: SideBarProps) {
   return (
     <div>
       <>
-        <Box className="container">
-          <hr className="hr" />
-          <Button onClick={toggleDrawer("left", true)}>FILTER SEARCH</Button>
-          <Drawer
-            anchor={"left"}
-            open={state["left"]}
-            onClose={toggleDrawer("left", false)}
-          >
-            {filters()}
-          </Drawer>
-        </Box>
+        {!isExtraSmallSize ? (
+          <Box className="container">
+            <hr className="hr" />
+            <Button onClick={toggleDrawer("left", true)}>FILTER SEARCH</Button>
+          </Box>
+        ) : (
+          <Button onClick={toggleDrawer("left", true)}>FILTRA</Button>
+        )}
+
+        <Drawer
+          className={isExtraSmallSize ? "filters-drawer-small" : ""}
+          anchor={"left"}
+          open={state["left"]}
+          onClose={toggleDrawer("left", false)}
+        >
+          {filters()}
+        </Drawer>
       </>
     </div>
   );

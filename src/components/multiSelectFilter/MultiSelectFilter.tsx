@@ -49,7 +49,7 @@ export default function MultiSelectFilter(props: MultiSelectFilterProps) {
   return (
     <Box>
       <label style={{ fontSize: "small" }}>{props.label}</label>
-      <FormControl sx={{ width: "100%" }}>
+      <FormControl sx={{ width: "100%", backgroundColor: "#f9f9f9" }}>
         <Select
           multiple
           value={personName}

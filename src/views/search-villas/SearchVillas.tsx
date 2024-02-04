@@ -114,43 +114,51 @@ export default function SearchVillas() {
       <Box sx={{ flexGrow: 1 }} style={{ padding: "2em" }}>
         <Grid container rowSpacing={4}>
           <Grid item container xs={12}>
-            <Grid item xs={12} md={6}>
-              <h2>Villas in East Sicily</h2>
+            {isExtraSmallSize && (
+              <Grid item xs={12}>
+                <Box
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
+                  }}
+                >
+                  <SideBar onFilterApply={handleFilterApply} />
+                  <Button className="mobile-filter-btn">Ordina</Button>
+                </Box>
+              </Grid>
+            )}
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{ textAlign: { xs: "center", md: "left" } }}
+            >
+              <h1>Villas in East Sicily</h1>
               <p>23 results found</p>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <div>order by</div>
-            </Grid>
+            {!isExtraSmallSize && (
+              <Grid item md={6}>
+                <div>order by</div>
+              </Grid>
+            )}
           </Grid>
           <Grid item container xs={12}>
-            <Grid item container>
-              <Grid item xs={2}>
-                {isExtraSmallSize ? (
-                  <Box
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-evenly",
-                    }}
-                  >
-                    <Button>Filtra</Button>
-                    <Button>Ordina</Button>
-                  </Box>
-                ) : (
-                  <>
-                    <SideBar onFilterApply={handleFilterApply} />
-                  </>
-                )}
-              </Grid>
-              <Grid item container rowSpacing={2} xs={10}>
-                {villas.map((el, i) => {
-                  return (
-                    <Grid item key={i} md={6}>
-                      <FavCard />
-                    </Grid>
-                  );
-                })}
-              </Grid>
+            {!isExtraSmallSize && (
+              <>
+                <Grid item md={2}>
+                  <SideBar onFilterApply={handleFilterApply} />
+                </Grid>
+              </>
+            )}
+            <Grid item container rowSpacing={2} xs={12} md={10}>
+              {villas.map((_el, i) => {
+                return (
+                  <Grid item key={i} md={6} xs={12}>
+                    <FavCard />
+                  </Grid>
+                );
+              })}
             </Grid>
           </Grid>
         </Grid>
