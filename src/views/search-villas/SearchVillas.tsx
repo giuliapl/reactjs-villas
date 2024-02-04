@@ -45,6 +45,16 @@ export default function SearchVillas() {
 
   const handleOrderByChange = (value: string) => {
     setOrderByValue(value);
+    let orderedVillas = [];
+
+    // todo: sort by key, add key-val to select
+    if (value === "Increasing Price") {
+      orderedVillas = villas.toSorted((a, b) => a.price - b.price);
+    } else {
+      orderedVillas = villas.toSorted((a, b) => b.price - a.price);
+    }
+
+    setVillas(orderedVillas);
   };
 
   const handleFilterApply = (
